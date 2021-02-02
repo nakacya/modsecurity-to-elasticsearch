@@ -102,10 +102,22 @@ def parseLogFile(file):
 
 while True:
     for root, subFolders, files in os.walk(basedir):
+#X#        print ('RootDir '+str(root))
+#X#        print ('subDir '+str(subFolders))
+#X#        print ('files '+str(files))
         for file in files:
             logfile = os.path.join(root, file)
             parseLogFile(file=logfile)
-            os.rmdir(root)
+        if root != basedir and len(files) != 0:
+           os.rmdir(root)
+        else:
+           if root == basedir and len(subFolders) != 0:
+             try:
+               for subdir in subFolders:
+                 sub_dir = os.path.join(root, subdir)
+                 os.rmdir(sub_dir)
+             except OSError:
+               pass
 
     print ('Sleeping for a while...')
     time.sleep(15)
