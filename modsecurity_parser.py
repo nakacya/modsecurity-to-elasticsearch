@@ -108,10 +108,10 @@ while True:
         for file in files:
             logfile = os.path.join(root, file)
             parseLogFile(file=logfile)
+
         if root != basedir and len(files) != 0:
            os.rmdir(root)
-        else:
-           if root == basedir and len(subFolders) != 0:
+        elif (root != basedir and len(subFolders) != 0) or (root == basedir and len(subFolders) != 0):
              try:
                for subdir in subFolders:
                  sub_dir = os.path.join(root, subdir)
